@@ -1,10 +1,10 @@
 # AI Project Guide Tool
  
-Overview
+##Overview
 
 The Project Guide Tool is a web-based platform that helps users generate problem statements based on selected categories and ensures fair task distribution within teams. It utilizes locally hosted LLMs to suggest project ideas and an AI-powered workload distribution system to assign tasks based on team skills and project requirements.
 
-Features
+##Features
 
 Problem Statement Generation: Uses Llama 3.1B, Mistral, and Qwen via Ollama to generate relevant project ideas.
 
@@ -14,7 +14,7 @@ Intuitive Web UI: A seamless user experience for selecting categories and managi
 
 Efficient Local Execution: Runs all models locally for low latency and privacy.
 
-Tech Stack
+##Tech Stack
 
 LLMs: Llama 3.1B, Mistral, Qwen (via Ollama)
 
@@ -26,7 +26,7 @@ Frontend: React.js
 
 Database: MongoDB (for storing project ideas and team information)
 
-Usage
+##Usage
 
 Select a project category to generate problem statements.
 
@@ -34,7 +34,7 @@ Enter team members' skills to receive an optimized task distribution.
 
 View recommended project ideas and assigned roles.
 
-Future Enhancements
+##Future Enhancements
 
 Automated Feedback System: AI-generated insights on project feasibility.
 
