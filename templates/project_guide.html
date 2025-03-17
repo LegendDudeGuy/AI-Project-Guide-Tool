@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #011425;
+            color: #f9f9f9;
+        }
+        h1 {
+            color: #f9f9f9;
+        }
+        .guide-block {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #002147;
+            color: #f9f9f9;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .step-number {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="guide-block">
+        {% if project_guide %}
+            {% for line in project_guide.split('\n') %}
+                {% if line.strip() %}
+                    <div class="step">
+                        <span class="step-number"></span>
+                        <span>{{ line.strip() }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No guide available.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('next_page', domain=request.args.get('domain')) }}">Back to Projects</a>
+</body>
+</html>

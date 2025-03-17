@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ checkpoint_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styless.css') }}">
+</head>
+<body>
+
+<h1>{{ checkpoint_title }}</h1>
+
+<ul>
+    {% for step in steps %}
+        <li>{{ step }}</li>
+    {% endfor %}
+</ul>
+<br>
+<a href="{{ url_for('index') }}">Back to Index</a>
+
+</body>
+</html>

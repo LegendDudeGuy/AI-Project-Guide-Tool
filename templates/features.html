@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexagon Buttons</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: black; /* Dark background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Page Container */
+        .page-container {
+            text-align: center;
+            width: 50%;
+        }
+
+        /* Container for hexagon buttons */
+        .container {
+            display: grid;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            gap: 30px;
+        }
+
+        /* Hexagon button shape */
+        .hexagon {
+            position: relative;
+            width: 173.2px; /* Width of hexagon */
+            height: 100px; /* Height of hexagon */
+            background-color: #1e90ff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 50px;
+        }
+
+        .hexagon:before, .hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 86.6px solid transparent;
+            border-right: 86.6px solid transparent;
+        }
+
+        .hexagon:before {
+            bottom: 100%;
+            border-bottom: 50px solid #002147;
+        }
+
+        .hexagon:after {
+            top: 100%;
+            border-top: 50px solid #002147;
+        }
+
+        .hexagon:hover {
+            background-color: #00509e; /* Medium blue on hover */
+        }
+
+        .hexagon:hover:before {
+            border-bottom-color: #00509e;
+        }
+
+        .hexagon:hover:after {
+            border-top-color: #00509e;
+        }
+
+        /* Text inside hexagon */
+        .hexagon span {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            padding: 10px;
+        }
+
+        /* Title */
+        h1 {
+            text-align: center;
+            color: #1e90ff; /* Bright blue */
+            margin-bottom: 40px;
+            font-size: 55px;
+        }
+
+        /* Layout specific to the 2-3 button layout */
+        .row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .row:first-child {
+            margin-bottom: -25px; /* Adjust the gap between rows */
+        }
+
+        /* Header styles */
+        header {
+            width: 100%;
+            background-color: #002147;
+            padding: 20px 0;
+            
+        }
+header nav ul {
+    margin-left: 1300px;
+}
+        header nav ul li a {
+            color: white;
+            text-decoration: underline;
+			align: right;
+        }
+		
+    </style>
+</head>
+<body style="background-image:url(https://www.pixelstalk.net/wp-content/uploads/images2/Dark-Blue-Abstract-Wallpapers-With-Vertical-Lines.jpg);background-repeat: no-repeat; background-size: cover;">
+    <header>
+        <div class="container"> 
+		
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <h1>Select an Option</h1>
+    <div class="page-container" align="center">
+        <div class="container">
+            <div class="row">
+                <!--div class="hexagon" onclick="location.href='#'">
+                    <span>Project Breakdown</span>
+                </div>-->
+                <!--<div class="hexagon" onclick="location.href='#'">
+                    <span>AI Mentor/Advisor</span>
+                </div>-->
+            </div>
+            <div class="row">
+                <!--<div class="hexagon" onclick="location.href='#'">
+                    <span>AI Generated Documentation</span>
+                </div>-->
+                <a href="{{ url_for('index') }}">
+                <button class="hexagon">
+                    <span>Progress Visualization</span>
+                </a>
+                </div>
+                <div class="hexagon" onclick="location.href='#'">
+                    <span>Skill Gap Analysis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

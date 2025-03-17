@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    /* General reset and body styling */
+    body {
+        background-image: url("https://www.pixelstalk.net/wp-content/uploads/images2/Dark-Blue-Abstract-Wallpapers-With-Vertical-Lines.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Header styling */
+    .header-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #002147;
+        padding: 15px 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-container h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .header-container a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        background-color: rgb(155, 19, 19); 
+        padding: 10px 10px;
+        margin-right: 50px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .header-container a:hover {
+        background-color: #d43f6c; /* Darker button color on hover */
+    }
+
+    /* Main content container */
+    .main-content {
+        margin-top: 80px; /* Adjusted for header height */
+        text-align: center;
+        padding: 20px;
+    }
+
+    .main-content h1 {
+        font-size: 36px;
+        font-weight: bold;
+        color: whitesmoke;
+        margin-bottom: 40px;
+    }
+
+    /* Card container */
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        margin: 20px auto;
+        max-width: 1200px;
+    }
+
+    /* Card styling */
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+        width: 250px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+        font-size: 20px;
+        color: #1e90ff;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .card-button {
+        background-color: #1e90ff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card-button:hover {
+        background-color: #00509e;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .card-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    </style>
+</head>
+<body>
+    
+    <div class="header-container">
+        <h2>Welcome back, {{ username }}!</h2> 
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Select an Option</h1>
+
+        <div class="card-container">
+            <div class="card" onclick="location.href='#'">
+                <h3>New Project</h3>
+                <p>Start a new project from scratch with our guided process.</p>
+                <a href="{{ url_for('loggedin') }}">
+                <button class="card-button">Get Started</button>
+            </a>
+            </div>
+
+            
+            
+
+
+            <div class="card" onclick="location.href='#'">
+                <h3>Resume Previous Project</h3>
+                <p>Continue working on a previously started project.</p>
+                <a href="{{ url_for('features') }}">
+                    <button class="card-button">Resume</button>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

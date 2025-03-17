@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Idea Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #011425;
+            color: #f9f9f9;
+        }
+        h1 {
+            color: #f9f9f9;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .ideas {
+            margin-top: 20px;
+        }
+        .idea-block {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #002147;
+            color: #f9f9f9;
+            position: relative;
+        }
+        .idea-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .idea-steps {
+            margin-left: 20px;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+        .loading.show {
+            display: block;
+        }
+        .idea-buttons {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+        .idea-buttons button {
+            margin-left: 5px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .idea-buttons button:hover {
+            background-color: #002147;
+        }
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #002147;
+            transform: translateY(-3px);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Idea Generator</h1>
+    
+    <p id="confirmationMessage"></p>
+    
+    <div class="loading" id="loadingIndicator">Loading...</div>
+    <div class="ideas" id="ideasOutput">
+        <!-- Project ideas will be dynamically inserted here -->
+    </div>
+
+    <button id="regenerateBtn" style="display:none;" onclick="regenerateIdeas()">Regenerate Ideas</button>
+    <button id="clearBtn" style="display:none;" onclick="clearIdeas()">Clear Ideas</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayConfirmation();
+        });
+
+        async function displayConfirmation() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const domain = urlParams.get('domain');
+            const otherText = urlParams.get('otherText') || '';
+
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            if (domain === "Other" && otherText) {
+                confirmationMessage.textContent = `You specified a domain: ${otherText}`;
+            } else if (domain) {
+                confirmationMessage.textContent = `You selected: ${domain}`;
+            } else {
+                confirmationMessage.textContent = 'No domain selected.';
+            }
+
+            if (domain || otherText) {
+                loadingIndicator.classList.add('show');
+                try {
+                    const response = await fetch(`/next-page?domain=${encodeURIComponent(domain)}&otherText=${encodeURIComponent(otherText)}`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const contentType = response.headers.get('content-type');
+
+                    if (contentType && contentType.includes('application/json')) {
+                        const data = await response.json();
+                        displayIdeas(data.ideas);
+                        document.getElementById('regenerateBtn').style.display = 'inline';
+                        document.getElementById('clearBtn').style.display = 'inline';
+                    } else {
+                        throw new Error('Invalid response format');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                } finally {
+                    loadingIndicator.classList.remove('show');
+                }
+            }
+        }
+
+        function displayIdeas(ideas) {
+            const ideasOutput = document.getElementById('ideasOutput');
+            ideasOutput.innerHTML = '';
+
+            if (Array.isArray(ideas)) {
+                ideas.forEach((idea, index) => {
+                    const ideaBlock = document.createElement('div');
+                    ideaBlock.className = 'idea-block';
+                    ideaBlock.dataset.index = index; // Set the index for identifying the idea
+                    ideaBlock.innerHTML = `
+                        <div class="idea-title">Project Idea</div>
+                        <div class="idea-steps">${idea}</div>
+                        <div class="idea-buttons">
+                            <button onclick="discardIdea(this)">Discard</button>
+                            <button onclick="selectIdea(this)">Select</button>
+                        </div>
+                    `;
+                    ideasOutput.appendChild(ideaBlock);
+                });
+            } else {
+                ideasOutput.innerHTML = '<p>No ideas available.</p>';
+            }
+        }
+
+        async function regenerateIdeas() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const domain = urlParams.get('domain');
+            const otherText = urlParams.get('otherText');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            if (domain || otherText) {
+                loadingIndicator.classList.add('show');
+                try {
+                    const response = await fetch(`/next-page?domain=${encodeURIComponent(domain)}&otherText=${encodeURIComponent(otherText)}`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const contentType = response.headers.get('content-type');
+
+                    if (contentType && contentType.includes('application/json')) {
+                        const data = await response.json();
+                        displayIdeas(data.ideas);
+                    } else {
+                        throw new Error('Invalid response format');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                } finally {
+                    loadingIndicator.classList.remove('show');
+                }
+            }
+        }
+
+        function clearIdeas() {
+            document.getElementById('ideasOutput').innerHTML = '';
+        }
+
+        async function discardIdea(button) {
+            const ideaBlock = button.closest('.idea-block');
+            const index = ideaBlock.dataset.index;
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            try {
+                loadingIndicator.classList.add('show');
+                const response = await fetch(`/discard-idea?index=${encodeURIComponent(index)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.newIdea) {
+                    ideaBlock.remove();
+                    const ideasOutput = document.getElementById('ideasOutput');
+                    const newIdeaBlock = document.createElement('div');
+                    newIdeaBlock.className = 'idea-block';
+                    newIdeaBlock.dataset.index = data.newIdea.index;
+                    newIdeaBlock.innerHTML = `
+                        <div class="idea-title">Project Idea</div>
+                        <div class="idea-steps">${data.newIdea.text}</div>
+                        <div class="idea-buttons">
+                            <button onclick="discardIdea(this)">Discard</button>
+                            <button onclick="selectIdea(this)">Select</button>
+                        </div>
+                    `;
+                    ideasOutput.appendChild(newIdeaBlock);
+                } else {
+                    alert('Failed to discard idea.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred: ' + error.message);
+            } finally {
+                loadingIndicator.classList.remove('show');
+            }
+        }
+
+        function selectIdea(button) {
+            const ideaBlock = button.closest('.idea-block');
+            const ideaText = ideaBlock.querySelector('.idea-steps').innerText;
+            const domain = new URLSearchParams(window.location.search).get('domain');
+            
+            // Redirect to the new guide generation page, passing the selected idea and domain
+            window.location.href = `/generate-guide?idea=${encodeURIComponent(ideaText)}&domain=${encodeURIComponent(domain)}`;
+        }
+    </script>
+</body>
+</html>

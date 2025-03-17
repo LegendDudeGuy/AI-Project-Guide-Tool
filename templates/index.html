@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Problem Statement and Checkpoints</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styless.css') }}">
+    <style>
+        .box-container {
+            position: relative;
+            width: 100%; /* Ensure it takes up the full width of its parent */
+            height: 500px; /* Define a fixed height */
+            overflow: hidden; 
+        }
+        .checkpoint-box {
+            position: absolute;
+            width: 150px;
+            height: 50px;
+            background-color: lightblue;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+    </style>       
+</head>
+<body>
+
+<h1>{{ problem_statement }}</h1>
+
+<!-- Problem Statement Selector -->
+<form action="/index" method="get">
+    <label for="problem">Select Problem Statement:</label>
+    <select id="problem" name="problem" onchange="this.form.submit()">
+        {% for key in problem_statements.keys() %}
+            <option value="{{ key }}" {% if key == problem_statement %}selected{% endif %}>{{ key }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="container">
+    <svg id="line-container"></svg>
+    <div class="box-container">
+        {% for checkpoint in checkpoints_data %}
+            <div class="checkpoint-box" id="box-{{ loop.index0 }}" onclick="window.location.href='{{ url_for('checkpoint_page', checkpoint_title=checkpoint.title) }}'">
+                {{ checkpoint.title }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const boxes = Array.from(document.querySelectorAll('.checkpoint-box'));
+        const container = document.querySelector('.box-container');
+        const svg = document.getElementById('line-container');
+        const boxWidth = 150;
+        const boxHeight = 50;
+        const spacing = 60; // Increase spacing between boxes
+        const verticalSpacing = 100; // Increase vertical spacing
+        const maxVerticalOffset = 300; // Increase max vertical offset
+
+        function placeBoxes() {
+            const containerWidth = container.offsetWidth;
+            const boxCount = boxes.length;
+            const totalWidth = boxCount * (boxWidth + spacing) - spacing;
+            const startX = (containerWidth - totalWidth) / 2;
+
+            boxes.forEach((box, idx) => {
+                const x = startX + idx * (boxWidth + spacing);
+                const y = Math.random() * maxVerticalOffset;
+                box.style.left = `${x}px`;
+                box.style.top = `${y}px`;
+            });
+        }
+
+        function drawLines() {
+            const pathData = boxes.map((box, idx) => {
+                if (idx === 0) return '';
+                const prevBox = boxes[idx - 1];
+                return createLinePath(prevBox, box);
+            }).join(' ');
+
+            svg.innerHTML = `<path d="${pathData}" stroke="black" fill="transparent" stroke-width="2"/>`;
+        }
+
+        function createLinePath(box1, box2) {
+            const x1 = box1.offsetLeft + boxWidth / 2;
+            const y1 = box1.offsetTop + boxHeight / 2;
+            const x2 = box2.offsetLeft + boxWidth / 2;
+            const y2 = box2.offsetTop + boxHeight / 2;
+
+            return `M ${x1},${y1} C ${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2} `;
+        }
+
+        placeBoxes();
+        drawLines();
+    });
+</script>
+
+</body>
+</html>

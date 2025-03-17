@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Project Guide Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f0f4f8, #d9e4f5); /* Gradient background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            
+        }
+		
+
+        /* Container */
+        .container {
+            width: 85%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        /* Header */
+        header {
+            background-color: #020f1d;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #1e90ff;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #1e90ff, #00509e);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s;
+        }
+
+        .hero button {
+            background-color: #002147;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .hero button::after {
+            content: '';
+            background: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease-out;
+            border-radius: 50%;
+        }
+
+        .hero button:hover::after {
+            transform: translate(-50%, -50%) scale(4);
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+            background-color: #00509e;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+       /* Features Section */
+/* Features Section */
+.features-section {
+    background-color: #002147;
+    padding: 80px 0;
+}
+
+.features-section h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 10px;
+    font-weight: bold;
+    background: linear-gradient(to right,white,white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.features-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: white;
+    margin: 10px auto 0;
+}
+
+.features-list {
+    width: 70%;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    color: #ffffff; /* White text */
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    text-align: center;
+}
+
+.features-list li {
+    background: #1e90ff; /* Blue background */
+    border: none; /* Remove border */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    position: relative;
+    text-align: center; /* Center align text */
+}
+
+.features-list li:hover {
+    transform: translateY(-10px); /* Slight lift on hover */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background-color: #00509e; /* Darker blue on hover */
+}
+
+.features-list li span {
+    font-weight: bolder; /* Bold headings */
+    font-size: larger;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    color: #002147;
+}
+
+/* Bold text before ':' */
+.features-list li span::after {
+    content: ':';
+    font-weight: normal; /* Ensure colon is not bold */
+}
+
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-list {
+                width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container"> 
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('login_signup') }}">Login/Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="background-image:url(https://i.pinimg.com/736x/fd/14/50/fd1450f0c015261dd7e133d5a9503414.jpg);background-repeat: no-repeat; background-size: cover;">
+        <div class="container">
+            <h1>AI-Powered Project Guidance at Your Fingertips</h1>
+            <p>Short description of the tool's benefits.</p>
+            <a href="{{ url_for('form') }}">
+                <button id="problemBtn">Problem Statement Generator</button>
+            </a>
+            <a href="{{ url_for('features') }}">
+            <button id="projectGuideBtn">Project Guide Tool</button>
+        </a>
+        </div>
+    </section>
+
+    
+	<!-- Features Section (Text Only) -->
+<section class="features-section" style="background-image: url(https://www.pixelstalk.net/wp-content/uploads/images2/Dark-Blue-Abstract-Wallpapers-With-Vertical-Lines.jpg)">
+    <div class="container">
+        <h2 style="color: whitesmoke;">Key Features</h2>
+        <ul class="features-list">
+            <li><span>Project Breakdown</span><br> Break down complex projects into manageable tasks with AI assistance.</li>
+            <li><span>AI Mentor/Advisor</span><br> Get AI-powered advice and mentorship throughout the project lifecycle.</li>
+            <li><span>AI-Generated Documentation</span><br> Automatically generate detailed project documentation with AI support.</li>
+            <li><span>Progress Visualization</span><br> Track your project’s progress visually with interactive charts and timelines.</li>
+            <li><span>Skill Gap Analysis</span><br> Analyze the skill gaps within your team and get recommendations for improvements.</li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
+
+

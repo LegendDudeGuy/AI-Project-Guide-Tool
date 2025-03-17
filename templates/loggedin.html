@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            
+            
+        }
+		
+
+        .container {
+            width: 100%;
+            margin: auto;
+            max-width: 1200px;
+            
+        }
+        .container nav {
+            width: 100%;
+            margin: auto;
+            max-width: 1200px;
+            text-align: right;
+        }
+        
+        /* Header */
+        header {
+            background-color: #020f1d;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+       /* header .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+        } */
+
+        header nav  a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        header nav  a:hover {
+            color: #1e90ff;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            /*background: linear-gradient(to right, #1e90ff, #00509e);*/
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s;
+        }
+
+        .hero button {
+            background-color: #093260;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .hero button::after {
+            content: '';
+            background: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease-out;
+            border-radius: 50%;
+        }
+
+        .hero button:hover::after {
+            transform: translate(-50%, -50%) scale(4);
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+            background-color: #00509e;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-list {
+                width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body style="background-image: url(https://www.pixelstalk.net/wp-content/uploads/images2/Dark-Blue-Abstract-Wallpapers-With-Vertical-Lines.jpg);
+background-repeat: no-repeat;
+background-size: cover;">
+    <header>
+        <div class="container"> 
+            <nav>
+                        <h2>Welcome back!</h2>
+                        <a href="/logout" class="btn btn-danger">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>AI-Powered Project Guidance at Your Fingertips</h1>
+            <p>Short description of the tool's benefits.</p>
+            <a href="{{ url_for('form') }}">
+                <button id="problemBtn">Problem Statement Generator</button>
+            </a>
+            <a href="{{ url_for('features') }}">
+            <button id="projectGuideBtn">Project Guide Tool</button>
+        </a>
+        </div>
+    </section>
+
+</body>
+</html>
+
+
